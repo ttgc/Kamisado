@@ -2,7 +2,6 @@ package kamisado.level;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -32,13 +31,31 @@ public class MainLevel extends BasicGameState {
 	@Override
 	public void mouseDragged(int oldx, int oldy, int newx, int newy) {
 		// TODO Auto-generated method stub
+		// Only used during game
 		super.mouseDragged(oldx, oldy, newx, newy);
-		if (oldx/100 != newx/100 && oldy/100 != newy/100) {
-			try {
-				board.move(oldx, oldy, newx, newy);
-			} catch (MoveException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		if (!board.isEnded()) { //if game is not finished yet
+			if (oldx/100 != newx/100 && oldy/100 != newy/100) {
+				try {
+					board.move(oldx/100, oldy/100, newx/100, newy/100);
+					//real area is 100x100 px ; have to divide each pixel position given by slick
+				} catch (MoveException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	@Override
+	public void mouseReleased(int button, int x, int y) {
+		// TODO Auto-generated method stub
+		// Only used for deployment for the next game
+		super.mouseReleased(button, x, y);
+		if (board.isEnded()) {
+			if (y < 100) {//first column
+				board.reset(false);
+			} else if (y > 700) {//last column
+				board.reset(true);
 			}
 		}
 	}
@@ -46,6 +63,7 @@ public class MainLevel extends BasicGameState {
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
 		// TODO Auto-generated method stub
+		board.update(delta);
 	}
 
 	@Override

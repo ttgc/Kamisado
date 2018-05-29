@@ -1,8 +1,12 @@
 package kamisado.gameplay;
 
+import java.util.Arrays;
 import java.util.Random;
+import java.util.Vector;
 
 import org.newdawn.slick.Color;
+
+import kamisado.exceptions.InvalidArgumentException;
 
 public enum Couleur {
 	Marron(new Color(91, 60, 17)),
@@ -46,5 +50,18 @@ public enum Couleur {
 		default:
 			return null;
 		}
+	}
+	
+	public static Couleur generateWithExclusion(Vector<Couleur> exclude) throws InvalidArgumentException {
+		if (exclude.size() >= 8) {
+			throw new InvalidArgumentException("the list is too big", exclude);
+		}
+		Random rdm = new Random();
+		Vector<Couleur> avalaible = new Vector<>();
+		avalaible.addAll(Arrays.asList(Marron, Orange, Jaune, Rouge, Vert, Bleu, Violet, Rose));
+		for (Couleur i : exclude) {
+			avalaible.remove(i);
+		}
+		return avalaible.get(rdm.nextInt(avalaible.size()));
 	}
 }
