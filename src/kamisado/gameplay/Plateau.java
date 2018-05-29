@@ -77,14 +77,24 @@ public class Plateau {
 		}
 		int dx = tox-fromx;
 		int dy = toy-fromy;
-		if (dy != 0 && dx != dy) {
-			throw new MoveException("illegal move", pieces.get(fromx, fromy));
+		Piece piece = pieces.get(fromx, fromy);
+		if ((piece.getSide().equals(Side.Black) && dy >= 0) || (piece.getSide().equals(Side.White) && dy <= 0) || (dx != 0 && dx != dy)) {
+			throw new MoveException("illegal move", piece);
 		}
-		boolean possible = false;
 		switch(pieces.get(fromx, fromy).getType()) {
 		case Normal:
-			for (int i=1;i<=Math.abs(dx);i++) {
-				
+			for (int i=1;i<=Math.abs(dy);i++) {
+				if (dx != 0) {
+					for (int k=1;k<Math.abs(dx);k++) {
+						if (pieces.get(((int)Math.signum(dx))*k+fromx, ((int)Math.signum(dy))*i+fromy) != null) {
+							throw new MoveException("obstacle found on the path", piece);
+						}
+					}
+				} else {
+					if (pieces.get(fromx, ((int)Math.signum(dy))*i+fromy) != null) {
+						throw new MoveException("obstacle found on the path", piece);
+					}
+				}
 			}
 			break;
 		case Sumo:
@@ -96,9 +106,8 @@ public class Plateau {
 		default:
 			break;
 		}
-		if (!possible) {
-			throw new MoveException("obstacle found on the path", pieces.get(fromx, fromy));
-		}
+		pieces.set(fromx, fromy, null);
+		pieces.set(tox, toy, piece);
 	}
 	
 	
