@@ -8,21 +8,27 @@ public class Plateau {
 	
 	private Matrix<Couleur> back;
 	private Matrix<Piece> pieces;
-
+	
 	public Plateau() {
 		// TODO Auto-generated constructor stub
 		back = new Matrix<Couleur>(8,8);
-		//pieces = new Matrix<Pion>(8,8);
+		pieces = new Matrix<Piece>(8,8);
 		
-		/*for (int i = 0;i<=back.getWidth();i++) {
-			for (int j = 0;j<=back.getHeight();j++) {
+		for (int i=0;i<=back.getWidth();i++) {
+			for (int j=0;j<=back.getHeight();j++) {
 				boolean verif = false;
 				do {
 					Couleur temp = Couleur.generate();
-					if ()
+					for (int k=0;k<=j;k++) {
+						for (int l=0;l<=i;l++)
+							if (back.get(k, l)==temp) {
+								verif = true;
+							}
+					}
+					back.set(i, j, temp);
 				} while (verif);
 			}
-		}*/
+		}
 	}
 	
 	public void render(Graphics g) {
