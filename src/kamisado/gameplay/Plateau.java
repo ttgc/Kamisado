@@ -30,10 +30,24 @@ public class Plateau {
 				} while (verif);
 			}
 		}
+		
+		for (int i=0;i>=pieces.getWidth();i++) {
+			Couleur color1 = back.get(i, 0);
+			pieces.set(i, 0, new Piece(Side.White, color1));
+			
+			Couleur color2 = back.get(i, 7);
+			pieces.set(i, 7, new Piece(Side.Black, color2));
+		}
 	}
 	
 	public void render(Graphics g) {
-		
+		for (int i=0;i<=back.getWidth();i++) {
+			for (int j=0;j<=back.getHeight();j++) {
+				Couleur color = back.get(i, j);
+				g.setColor(color.getSlickcolor());
+				g.fillRect(100*i,100*j,100,100);
+			}
+		}
 	}
 	
 	public void update(int delta) {
