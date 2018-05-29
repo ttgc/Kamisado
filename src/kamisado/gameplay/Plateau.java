@@ -32,7 +32,13 @@ public class Plateau {
 	}
 	
 	public void render(Graphics g) {
-		
+		for (int i=0;i<=back.getWidth();i++) {
+			for (int j=0;j<=back.getHeight();j++) {
+				Couleur color = back.get(i, j);
+				g.setColor(color.getSlickcolor());
+				g.fillRect(100*i,100*j,100,100);
+			}
+		}
 	}
 	
 	public void update(int delta) {
