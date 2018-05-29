@@ -2,6 +2,7 @@ package kamisado.gameplay;
 
 import org.newdawn.slick.Graphics;
 
+import kamisado.exceptions.MoveException;
 import pathfinderlib.basics.Matrix;
 
 public class Plateau {
@@ -39,9 +40,33 @@ public class Plateau {
 		
 	}
 	
-	public void move(int fromx, int fromy, int tox, int toy) {
-		if (pieces.get(fromx, fromy) != null) {
-			
+	public void move(int fromx, int fromy, int tox, int toy) throws MoveException {
+		if (pieces.get(fromx, fromy) == null) {
+			throw new MoveException("no piece found", null);
+		}
+		int dx = tox-fromx;
+		int dy = toy-fromy;
+		if (dy != 0 && dx != dy) {
+			throw new MoveException("illegal move", pieces.get(fromx, fromy));
+		}
+		boolean possible = false;
+		switch(pieces.get(fromx, fromy).getType()) {
+		case Normal:
+			for (int i=1;i<=Math.abs(dx);i++) {
+				
+			}
+			break;
+		case Sumo:
+			break;
+		case DoubleSumo:
+			break;
+		case TripleSumo:
+			break;
+		default:
+			break;
+		}
+		if (!possible) {
+			throw new MoveException("obstacle found on the path", pieces.get(fromx, fromy));
 		}
 	}
 	

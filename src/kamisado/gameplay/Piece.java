@@ -17,5 +17,9 @@ public class Piece {
 	public Side getSide() {
 		return side;
 	}
+	
+	public PieceType getType() {
+		return PieceType.Normal;
+	}
 
 }
