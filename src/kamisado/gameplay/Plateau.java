@@ -10,9 +10,11 @@ public class Plateau {
 	
 	private Matrix<Couleur> back;
 	private Matrix<Piece> pieces;
+	private boolean ended;
 	
 	public Plateau() {
 		// TODO Auto-generated constructor stub
+		ended = false;
 		back = new Matrix<Couleur>(8,8);
 		pieces = new Matrix<Piece>(8,8);
 		
@@ -71,6 +73,10 @@ public class Plateau {
 		
 	}
 	
+	public void reset(boolean inverted) {
+		
+	}
+	
 	public void move(int fromx, int fromy, int tox, int toy) throws MoveException {
 		if (pieces.get(fromx, fromy) == null) {
 			throw new MoveException("no piece found", null);
@@ -108,6 +114,25 @@ public class Plateau {
 		}
 		pieces.set(fromx, fromy, null);
 		pieces.set(tox, toy, piece);
+		checkEnd();
+	}
+
+	private void checkEnd() {
+		// TODO Auto-generated method stub
+		for (int i=0;i<pieces.getWidth();i++) {
+			if (pieces.get(0, i) != null && pieces.get(0, i).getSide().equals(Side.Black)) {
+				pieces.get(0, i).upgrade();
+				ended = true;
+			}
+			if (pieces.get(7, i) != null && pieces.get(7, i).getSide().equals(Side.White)) {
+				pieces.get(7, i).upgrade();
+				ended = true;
+			}
+		}
+	}
+
+	public boolean isEnded() {
+		return ended;
 	}
 	
 	
