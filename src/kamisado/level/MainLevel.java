@@ -33,7 +33,7 @@ public class MainLevel extends BasicGameState {
 	public void mouseDragged(int oldx, int oldy, int newx, int newy) {
 		// TODO Auto-generated method stub
 		super.mouseDragged(oldx, oldy, newx, newy);
-		if (oldx/100 == newx/100 && oldy/100 == newy/100) {
+		if (oldx/100 != newx/100 && oldy/100 != newy/100) {
 			try {
 				board.move(oldx, oldy, newx, newy);
 			} catch (MoveException e) {
