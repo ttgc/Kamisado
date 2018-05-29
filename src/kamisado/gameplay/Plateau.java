@@ -88,6 +88,28 @@ public class Plateau {
 			throw new MoveException("illegal move", piece);
 		}
 		switch(pieces.get(fromx, fromy).getType()) {
+		case Sumo:
+			if (Math.abs(dy) > 5) {
+				throw new MoveException("a sumo cannot move too far", piece);
+			}
+			if (Math.abs(dy) == 1 && dx == 0 && fromy+(2*dy) <= 7 && fromy+(2*dy) >= 0 && pieces.get(fromx, fromy+dy) != null && !pieces.get(fromx, fromy+dy).getSide().equals(piece.getSide()) && pieces.get(fromx, fromy+dy).getType().equals(PieceType.Normal)) {
+				if (pieces.get(fromx, fromy+(dy*2)) != null) {
+					throw new MoveException("too much pieces on this column", piece);
+				}
+				pieces.set(fromx, fromy+(dy*2), pieces.get(fromx, fromy+dy));
+				pieces.set(fromx, fromy+dy, null);
+			}
+			break;
+		case DoubleSumo:
+			if (Math.abs(dy) > 3) {
+				throw new MoveException("a double sumo cannot move too far", piece);
+			}
+			break;
+		case TripleSumo:
+			if (Math.abs(dy) > 1) {
+				throw new MoveException("a triple sumo cannot move too far", piece);
+			}
+			break;
 		case Normal:
 			for (int i=1;i<=Math.abs(dy);i++) {
 				if (dx != 0) {
@@ -103,14 +125,8 @@ public class Plateau {
 				}
 			}
 			break;
-		case Sumo:
-			break;
-		case DoubleSumo:
-			break;
-		case TripleSumo:
-			break;
 		default:
-			break;
+			throw new MoveException("internal move error", piece);
 		}
 		pieces.set(fromx, fromy, null);
 		pieces.set(tox, toy, piece);
