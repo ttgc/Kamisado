@@ -1,5 +1,6 @@
 package kamisado.gameplay;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
 import kamisado.exceptions.MoveException;
@@ -46,6 +47,22 @@ public class Plateau {
 				Couleur color = back.get(i, j);
 				g.setColor(color.getSlickcolor());
 				g.fillRect(100*i,100*j,100,100);
+			}
+		}
+		
+		for (int i=0;i<=pieces.getWidth();i++) {
+			for (int j=0;j<=pieces.getHeight();j++) {
+				if (pieces.get(i, j)!=null) {
+					Piece tour = pieces.get(i, j);
+					
+					Color CoulExt = tour.getSide().getColor();
+					g.setColor(CoulExt);
+					g.fillOval(i*100+50, j*100+50, 75, 75);
+					
+					Couleur CoulInt = tour.getColor();
+					g.setColor(CoulInt.getSlickcolor());
+					g.fillOval(i*100+50, j*100+50, 50, 50);
+				}
 			}
 		}
 	}
