@@ -6,7 +6,10 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import kamisado.gameplay.Plateau;
+
 public class MainLevel extends BasicGameState {
+	private Plateau board;
 
 	public MainLevel() {
 		// TODO Auto-generated constructor stub
@@ -15,7 +18,7 @@ public class MainLevel extends BasicGameState {
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
 		// TODO Auto-generated method stub
-
+		board = new Plateau();
 	}
 
 	@Override
