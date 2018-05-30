@@ -11,6 +11,7 @@ public class Plateau {
 	private Matrix<Couleur> back;
 	private Matrix<Piece> pieces;
 	private boolean ended;
+	private Side winner;
 	
 	public Plateau() {
 		// TODO Auto-generated constructor stub
@@ -18,16 +19,24 @@ public class Plateau {
 		back = new Matrix<Couleur>(8,8);
 		pieces = new Matrix<Piece>(8,8);
 		
-		for (int i=0;i<=back.getWidth();i++) {
-			for (int j=0;j<=back.getHeight();j++) {
+		//bouclage infini
+		for (int i=0;i<back.getWidth();i++) {
+			for (int j=0;j<back.getHeight();j++) {
 				boolean verif = false;
 				do {
+					verif = false;
 					Couleur temp = Couleur.generate();
-					for (int k=0;k<=j;k++) {
-						for (int l=0;l<=i;l++)
-							if (back.get(k, l)==temp) {
-								verif = true;
-							}
+					for (int k=0;k<i;k++) {
+						//System.out.println("("+i+";"+j+") - ("+k+";"+j+")");
+						if (back.get(k, j).equals(temp)) {
+							verif = true;
+						}
+					}
+					for (int l=0;l<j;l++) {
+						//System.out.println("("+i+";"+j+") - ("+i+";"+l+")");
+						if (back.get(i, l).equals(temp)) {
+							verif = true;
+						}
 					}
 					back.set(i, j, temp);
 				} while (verif);
@@ -139,16 +148,22 @@ public class Plateau {
 			if (pieces.get(0, i) != null && pieces.get(0, i).getSide().equals(Side.Black)) {
 				pieces.get(0, i).upgrade();
 				ended = true;
+				winner = Side.Black;
 			}
 			if (pieces.get(7, i) != null && pieces.get(7, i).getSide().equals(Side.White)) {
 				pieces.get(7, i).upgrade();
 				ended = true;
+				winner = Side.White;
 			}
 		}
 	}
 
 	public boolean isEnded() {
 		return ended;
+	}
+
+	public Side getWinner() {
+		return winner;
 	}
 	
 	

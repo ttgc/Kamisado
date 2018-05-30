@@ -9,6 +9,7 @@ public class MoveException extends Exception {
 	public MoveException(String message, Piece mover) {
 		super(message);
 		// TODO Auto-generated constructor stub
+		this.mover = mover;
 	}
 
 	public Piece getMover() {

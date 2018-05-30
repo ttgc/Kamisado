@@ -27,7 +27,7 @@ public class Kamisado extends StateBasedGame {
 			app = new AppGameContainer(new Kamisado("Kamisado"));
 			app.setDisplayMode(800, 800, false);
 			app.setShowFPS(false);
-			app.setFullscreen(true);
+			app.setFullscreen(false);
 			app.start();
 		} catch(SlickException e){
 			e.printStackTrace();
