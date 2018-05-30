@@ -1,5 +1,7 @@
 package kamisado.gameplay;
 
+import java.util.Vector;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
@@ -83,7 +85,26 @@ public class Plateau {
 	}
 	
 	public void reset(boolean inverted) {
-		
+		Vector<Piece> blancs = new Vector<>();
+		Vector<Piece> noirs = new Vector<>();
+		if (!inverted) {
+			for (int i=0;i<pieces.getHeight();i++) {
+				for (int k=0;k<pieces.getWidth();k++) {
+					if (pieces.get(k, i) != null) {
+						if (pieces.get(k, i).getSide().equals(Side.Black)) {
+							noirs.add(pieces.get(k, i));
+						} else {
+							blancs.add(pieces.get(k, i));
+						}
+						pieces.set(k, i, null);
+					}
+				}
+			}
+		}
+		for (int i=0;i>=pieces.getWidth();i++) {
+			pieces.set(i, 0, blancs.get(i));
+			pieces.set(i, 7, noirs.get(i));
+		}
 	}
 	
 	public void move(int fromx, int fromy, int tox, int toy) throws MoveException {
