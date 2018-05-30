@@ -33,7 +33,7 @@ public class Plateau {
 			}
 		}
 
-		for (int i=0;i>=pieces.getWidth();i++) {
+		for (int i=0;i<pieces.getWidth();i++) {
 			Couleur color1 = back.get(i, 0);
 			pieces.set(i, 0, new Piece(Side.White, color1));
 			
@@ -43,8 +43,8 @@ public class Plateau {
 	}
 	
 	public void render(Graphics g) {
-		for (int i=0;i<=back.getWidth();i++) {
-			for (int j=0;j<=back.getHeight();j++) {
+		for (int i=0;i<back.getWidth();i++) {
+			for (int j=0;j<back.getHeight();j++) {
 				Couleur color = back.get(i, j);
 				g.setColor(color.getSlickcolor());
 				g.fillRect(100*i,100*j,100,100);
@@ -54,8 +54,8 @@ public class Plateau {
 			}
 		}
 		
-		for (int i=0;i<=pieces.getWidth();i++) {
-			for (int j=0;j<=pieces.getHeight();j++) {
+		for (int i=0;i<pieces.getWidth();i++) {
+			for (int j=0;j<pieces.getHeight();j++) {
 				if (pieces.get(i, j)!=null) {
 					Piece tour = pieces.get(i, j);
 					
