@@ -48,6 +48,9 @@ public class Plateau {
 				Couleur color = back.get(i, j);
 				g.setColor(color.getSlickcolor());
 				g.fillRect(100*i,100*j,100,100);
+				g.setColor(Color.black);
+				g.drawLine(100*i,100*j,100*(i+1),100*j);
+				g.drawLine(100*i,100*j,100*i,100*(j+1));
 			}
 		}
 		
