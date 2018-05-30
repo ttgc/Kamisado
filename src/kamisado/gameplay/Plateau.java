@@ -88,6 +88,19 @@ public class Plateau {
 					}
 				}
 			}
+		} else {
+			for (int i=0;i<pieces.getHeight();i++) {
+				for (int k=pieces.getWidth()-1;k>=0;k--) {
+					if (pieces.get(k, i) != null) {
+						if (pieces.get(k, i).getSide().equals(Side.Black)) {
+							noirs.add(pieces.get(k, i));
+						} else {
+							blancs.add(pieces.get(k, i));
+						}
+						pieces.set(k, i, null);
+					}
+				}
+			}
 		}
 		for (int i=0;i>=pieces.getWidth();i++) {
 			pieces.set(i, 0, blancs.get(i));
