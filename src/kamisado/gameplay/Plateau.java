@@ -1,8 +1,11 @@
 package kamisado.gameplay;
 
+import java.util.Vector;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
+import kamisado.exceptions.InvalidArgumentException;
 import kamisado.exceptions.MoveException;
 import pathfinderlib.basics.Matrix;
 
@@ -10,39 +13,26 @@ public class Plateau {
 	
 	private Matrix<Couleur> back;
 	private Matrix<Piece> pieces;
+	private Vector<Couleur> verif;
 	private boolean ended;
 	private Side winner;
 	
-	public Plateau() {
+	public Plateau() throws InvalidArgumentException {
 		// TODO Auto-generated constructor stub
 		ended = false;
 		back = new Matrix<Couleur>(8,8);
 		pieces = new Matrix<Piece>(8,8);
+		verif = new Vector<Couleur>(8);
 		
-		//bouclage infini
 		for (int i=0;i<back.getWidth();i++) {
+			verif.clear();
 			for (int j=0;j<back.getHeight();j++) {
-				boolean verif = false;
-				do {
-					verif = false;
-					Couleur temp = Couleur.generate();
-					for (int k=0;k<i;k++) {
-						//System.out.println("("+i+";"+j+") - ("+k+";"+j+")");
-						if (back.get(k, j).equals(temp)) {
-							verif = true;
-						}
-					}
-					for (int l=0;l<j;l++) {
-						//System.out.println("("+i+";"+j+") - ("+i+";"+l+")");
-						if (back.get(i, l).equals(temp)) {
-							verif = true;
-						}
-					}
-					back.set(i, j, temp);
-				} while (verif);
+				Couleur temp = Couleur.generateWithExclusion(verif);
+				verif.add(temp);
+				back.set(i, j, temp);
 			}
 		}
-		
+
 		for (int i=0;i>=pieces.getWidth();i++) {
 			Couleur color1 = back.get(i, 0);
 			pieces.set(i, 0, new Piece(Side.White, color1));
