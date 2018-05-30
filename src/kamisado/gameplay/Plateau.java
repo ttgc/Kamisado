@@ -61,11 +61,11 @@ public class Plateau {
 					
 					Color CoulExt = tour.getSide().getColor();
 					g.setColor(CoulExt);
-					g.fillOval(i*100+50, j*100+50, 75, 75);
+					g.fillOval(i*100+12, j*100+12, 75, 75);
 					
 					Couleur CoulInt = tour.getColor();
 					g.setColor(CoulInt.getSlickcolor());
-					g.fillOval(i*100+50, j*100+50, 50, 50);
+					g.fillOval(i*100+25, j*100+25, 50, 50);
 				}
 			}
 		}
