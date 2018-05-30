@@ -49,7 +49,7 @@ public class Plateau {
 			Couleur color1 = colors.get(i);
 			pieces.set(i, 0, new Piece(Side.White, color1));
 			
-			Couleur color2 = colors.get(colors.size()-i);
+			Couleur color2 = colors.get(colors.size()-1-i);
 			pieces.set(i, 7, new Piece(Side.Black, color2));
 		}
 	}
