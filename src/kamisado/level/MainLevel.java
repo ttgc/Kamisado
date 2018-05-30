@@ -6,6 +6,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import kamisado.exceptions.InvalidArgumentException;
 import kamisado.exceptions.MoveException;
 import kamisado.gameplay.Plateau;
 
@@ -19,7 +20,13 @@ public class MainLevel extends BasicGameState {
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
 		// TODO Auto-generated method stub
-		board = new Plateau();
+		try {
+			board = new Plateau();
+		} catch (InvalidArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.exit(1);
+		}
 	}
 
 	@Override
