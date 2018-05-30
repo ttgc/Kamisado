@@ -1,5 +1,7 @@
 package kamisado.gameplay;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Vector;
 
 import org.newdawn.slick.Color;
@@ -33,11 +35,21 @@ public class Plateau {
 			}
 		}
 
-		for (int i=0;i<pieces.getWidth();i++) {
+		/*for (int i=0;i<pieces.getWidth();i++) {
 			Couleur color1 = back.get(i, 0);
 			pieces.set(i, 0, new Piece(Side.White, color1));
 			
 			Couleur color2 = back.get(i, 7);
+			pieces.set(i, 7, new Piece(Side.Black, color2));
+		}*/
+		Vector<Couleur> colors = new Vector<>();
+		colors.addAll(Arrays.asList(Couleur.Marron,Couleur.Bleu,Couleur.Jaune,Couleur.Marron,Couleur.Orange,Couleur.Rose,Couleur.Rouge,Couleur.Vert,Couleur.Violet));
+		Collections.shuffle(colors);
+		for (int i=0;i<pieces.getWidth();i++) {
+			Couleur color1 = colors.get(i);
+			pieces.set(i, 0, new Piece(Side.White, color1));
+			
+			Couleur color2 = colors.get(colors.size()-i);
 			pieces.set(i, 7, new Piece(Side.Black, color2));
 		}
 	}
