@@ -1,7 +1,10 @@
 package kamisado.level;
 
+import java.awt.Point;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -12,6 +15,7 @@ import kamisado.gameplay.Plateau;
 
 public class MainLevel extends BasicGameState {
 	private Plateau board;
+	private Point selected;
 
 	public MainLevel() {
 		// TODO Auto-generated constructor stub
@@ -27,6 +31,7 @@ public class MainLevel extends BasicGameState {
 			e.printStackTrace();
 			System.exit(1);
 		}
+		selected = null;
 	}
 
 	@Override
@@ -54,15 +59,41 @@ public class MainLevel extends BasicGameState {
 	}
 	
 	@Override
+	public void mouseClicked(int button, int x, int y, int nbr) {
+		// TODO Auto-generated method stub
+		super.mouseClicked(button, x, y, nbr);
+		if (!board.isEnded() && button == Input.MOUSE_LEFT_BUTTON) {
+			if (selected == null) {
+				selected = new Point(x/100,y/100);
+			} else {
+				if (selected.x != x/100 || selected.y != y/100) {
+					try {
+						board.move(selected.x, selected.y, x/100, y/100);
+					} catch (MoveException e) {
+						// TODO Auto-generated catch block
+						if (e.getMover() != null) {
+							e.printStackTrace();
+						}
+						System.out.println("error");
+					}
+					selected = null;
+				}
+			}
+		}
+	}
+	
+	@Override
 	public void mouseReleased(int button, int x, int y) {
 		// TODO Auto-generated method stub
 		// Only used for deployment for the next game
 		super.mouseReleased(button, x, y);
-		if (board.isEnded()) {
-			if (y < 100) {//first column
-				board.reset(false);
-			} else if (y > 700) {//last column
-				board.reset(true);
+		if (button == Input.MOUSE_LEFT_BUTTON) {
+			if (board.isEnded()) {
+				if (y < 100) {//first column
+					board.reset(false);
+				} else if (y > 700) {//last column
+					board.reset(true);
+				}
 			}
 		}
 	}
