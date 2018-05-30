@@ -43,13 +43,13 @@ public class Plateau {
 			pieces.set(i, 7, new Piece(Side.Black, color2));
 		}*/
 		Vector<Couleur> colors = new Vector<>();
-		colors.addAll(Arrays.asList(Couleur.Marron,Couleur.Bleu,Couleur.Jaune,Couleur.Marron,Couleur.Orange,Couleur.Rose,Couleur.Rouge,Couleur.Vert,Couleur.Violet));
+		colors.addAll(Arrays.asList(Couleur.Marron,Couleur.Bleu,Couleur.Jaune,Couleur.Orange,Couleur.Rose,Couleur.Rouge,Couleur.Vert,Couleur.Violet));
 		Collections.shuffle(colors);
 		for (int i=0;i<pieces.getWidth();i++) {
 			Couleur color1 = colors.get(i);
 			pieces.set(i, 0, new Piece(Side.White, color1));
 			
-			Couleur color2 = colors.get(colors.size()-i);
+			Couleur color2 = colors.get(colors.size()-1-i);
 			pieces.set(i, 7, new Piece(Side.Black, color2));
 		}
 	}
