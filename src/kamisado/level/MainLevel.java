@@ -14,6 +14,7 @@ import kamisado.exceptions.MoveException;
 import kamisado.gameplay.Couleur;
 import kamisado.gameplay.Plateau;
 import kamisado.gameplay.Side;
+import kamisado.gameplay.StructureSwitch;
 
 public class MainLevel extends BasicGameState {
 	private Plateau board;
@@ -75,15 +76,9 @@ public class MainLevel extends BasicGameState {
 				} else if (selected != null) {
 					if (selected.x != x/100 || selected.y != y/100) {
 						try {
-							nextcolor = board.move(selected.x, selected.y, x/100, y/100);
-							switch (playing) {
-							case Black:
-								playing = Side.White;
-								break;
-							case White:
-								playing = Side.Black;
-								break;
-							}
+							StructureSwitch sw = board.move(selected.x, selected.y, x/100, y/100);
+							playing = sw.side;
+							nextcolor = sw.color;
 						} catch (MoveException e) {
 							// TODO Auto-generated catch block
 							if (e.getMover() != null) {

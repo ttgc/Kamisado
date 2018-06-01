@@ -143,14 +143,14 @@ public class Plateau {
 		}
 	}
 	
-	public Couleur move(int fromx, int fromy, int tox, int toy) throws MoveException {
+	public StructureSwitch move(int fromx, int fromy, int tox, int toy) throws MoveException {
 		if (pieces.get(fromx, fromy) == null) {
 			throw new MoveException("no piece found", null);
 		}
 		int dx = tox-fromx;
 		int dy = toy-fromy;
 		Piece piece = pieces.get(fromx, fromy);
-		if ((piece.getSide().equals(Side.Black) && dy >= 0) || (piece.getSide().equals(Side.White) && dy <= 0) || (dx != 0 && dx != dy)) {
+		if ((piece.getSide().equals(Side.Black) && dy >= 0) || (piece.getSide().equals(Side.White) && dy <= 0) || (dx != 0 && Math.abs(dx) != Math.abs(dy))) {
 			throw new MoveException("illegal move", piece);
 		}
 		switch(pieces.get(fromx, fromy).getType()) {
@@ -197,7 +197,67 @@ public class Plateau {
 		pieces.set(fromx, fromy, null);
 		pieces.set(tox, toy, piece);
 		checkEnd();
-		return back.get(tox, toy);
+		return transferColor(back.get(tox, toy), piece.getSide());
+	}
+
+	private boolean isBlocked(Couleur couleur, Side playing) {
+		// TODO Auto-generated method stub
+		for (int i=0;i<pieces.getWidth();i++) {
+			for (int k=0;k<pieces.getHeight();k++) {
+				if (pieces.get(i, k) != null && pieces.get(i, k).getSide().equals(playing) && pieces.get(i, k).getColor().equals(couleur)) {
+					int dy = 0;
+					switch(playing) {
+					case Black:
+						dy = -1;
+						break;
+					case White:
+						dy = 1;
+						break;
+					}
+					boolean blocked = true;
+					for(int dx=-1;dx<=1;dx++) {
+						if (k+dy < pieces.getHeight() && k+dy >= 0 && i+dx >= 0 && i+dx < pieces.getWidth()) {
+							if (pieces.get(i+dx, k+dy) == null) {
+								blocked = false;
+							}
+						}
+					}
+					return blocked;
+				}
+			}
+		}
+		return false;
+	}
+	
+	private StructureSwitch transferColor(Couleur couleur, Side playing) {
+		switch (playing) {
+		case Black:
+			playing = Side.White;
+			break;
+		case White:
+			playing = Side.Black;
+			break;
+		}
+		while (isBlocked(couleur, playing)) {
+			boolean switched = false;
+			for (int i=0;i<pieces.getWidth();i++) {
+				for (int k=0;k<pieces.getHeight();k++) {
+					if (!switched && pieces.get(i, k) != null && pieces.get(i, k).getSide().equals(playing) && pieces.get(i, k).getColor().equals(couleur)) {
+						couleur = back.get(i, k);
+						switched = true;
+					}
+				}
+			}
+			switch (playing) {
+			case Black:
+				playing = Side.White;
+				break;
+			case White:
+				playing = Side.Black;
+				break;
+			}
+		}
+		return new StructureSwitch(couleur, playing);
 	}
 
 	private void checkEnd() {
