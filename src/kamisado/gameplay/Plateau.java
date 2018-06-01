@@ -194,6 +194,17 @@ public class Plateau {
 			}
 		}
 	}
+	
+	public Side getSideHere(int x, int y) {
+		if (pieces.get(x, y) != null) {
+			return pieces.get(x, y).getSide();
+		}
+		return null;
+	}
+	
+	public boolean isPieceHere(int x, int y) {
+		return (pieces.get(x, y) != null);
+	}
 
 	public boolean isEnded() {
 		return ended;

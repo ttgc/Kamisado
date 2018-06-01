@@ -12,10 +12,12 @@ import org.newdawn.slick.state.StateBasedGame;
 import kamisado.exceptions.InvalidArgumentException;
 import kamisado.exceptions.MoveException;
 import kamisado.gameplay.Plateau;
+import kamisado.gameplay.Side;
 
 public class MainLevel extends BasicGameState {
 	private Plateau board;
 	private Point selected;
+	private Side playing;
 
 	public MainLevel() {
 		// TODO Auto-generated constructor stub
@@ -32,6 +34,7 @@ public class MainLevel extends BasicGameState {
 			System.exit(1);
 		}
 		selected = null;
+		playing = Side.Black;
 	}
 
 	@Override
@@ -40,7 +43,7 @@ public class MainLevel extends BasicGameState {
 		board.render(g);
 	}
 	
-	@Override
+	/*@Override
 	public void mouseDragged(int oldx, int oldy, int newx, int newy) {
 		// TODO Auto-generated method stub
 		// Only used during game
@@ -56,14 +59,14 @@ public class MainLevel extends BasicGameState {
 				}
 			}
 		}
-	}
+	}*/
 	
 	@Override
 	public void mouseClicked(int button, int x, int y, int nbr) {
 		// TODO Auto-generated method stub
 		super.mouseClicked(button, x, y, nbr);
 		if (!board.isEnded() && button == Input.MOUSE_LEFT_BUTTON) {
-			if (selected == null) {
+			if (selected == null && board.isPieceHere(x/100, y/100) && board.getSideHere(x/100, y/100).equals(playing)) {
 				selected = new Point(x/100,y/100);
 			} else {
 				if (selected.x != x/100 || selected.y != y/100) {
