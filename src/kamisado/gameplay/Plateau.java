@@ -117,11 +117,15 @@ public class Plateau {
 						if (pieces.get(k, i).getSide().equals(Side.Black)) {
 							noirs.add(pieces.get(k, i));
 						} else {
-							blancs.add(pieces.get(k, i));
+							blancs.add(0,pieces.get(k, i));
 						}
 						pieces.set(k, i, null);
 					}
 				}
+			}
+			for (int i=0;i<pieces.getWidth();i++) {
+				pieces.set(pieces.getWidth()-1-i, 0, blancs.get(i));
+				pieces.set(i, 7, noirs.get(i));
 			}
 		} else {
 			for (int i=0;i<pieces.getHeight();i++) {
@@ -130,17 +134,18 @@ public class Plateau {
 						if (pieces.get(k, i).getSide().equals(Side.Black)) {
 							noirs.add(pieces.get(k, i));
 						} else {
-							blancs.add(pieces.get(k, i));
+							blancs.add(0,pieces.get(k, i));
 						}
 						pieces.set(k, i, null);
 					}
 				}
 			}
+			for (int i=0;i<pieces.getWidth();i++) {
+				pieces.set(i, 0, blancs.get(i));
+				pieces.set(pieces.getWidth()-1-i, 7, noirs.get(i));
+			}
 		}
-		for (int i=0;i<pieces.getWidth();i++) {
-			pieces.set(i, 0, blancs.get(i));
-			pieces.set(i, 7, noirs.get(i));
-		}
+		ended = false;
 	}
 	
 	public StructureSwitch move(int fromx, int fromy, int tox, int toy) throws MoveException {
@@ -180,7 +185,7 @@ public class Plateau {
 			for (int i=1;i<=Math.abs(dy);i++) {
 				if (dx != 0) {
 					for (int k=1;k<Math.abs(dx);k++) {
-						if (pieces.get(((int)Math.signum(dx))*k+fromx, ((int)Math.signum(dy))*i+fromy) != null) {
+						if (pieces.get(((int)Math.signum(dx))*k+fromx, ((int)Math.signum(dy))*k+fromy) != null) {
 							throw new MoveException("obstacle found on the path", piece);
 						}
 					}
