@@ -78,6 +78,26 @@ public class Plateau {
 					Couleur CoulInt = tour.getColor();
 					g.setColor(CoulInt.getSlickcolor());
 					g.fillOval(i*100+25, j*100+25, 50, 50);
+					
+					g.setColor(Color.black);
+					g.setLineWidth(2);
+					switch (tour.getType()) {
+					case DoubleSumo:
+						g.drawLine(i*100+42+4, j*100+22+4, i*100+10+65, j*100+10+45);
+						g.drawLine(i*100+22+4, j*100+42+4, i*100+9+45, j*100+9+65);
+						break;
+					case Sumo:
+						g.drawLine(i*100+32, j*100+32, i*100+12+55, j*100+12+55);
+						break;
+					case TripleSumo:
+						g.drawLine(i*100+32, j*100+32, i*100+12+55, j*100+12+55);
+						g.drawLine(i*100+42+4, j*100+22+4, i*100+10+65, j*100+10+45);
+						g.drawLine(i*100+22+4, j*100+42+4, i*100+9+45, j*100+9+65);
+						break;
+					default:
+						break;
+					}
+					g.setLineWidth(1);
 				}
 			}
 		}
