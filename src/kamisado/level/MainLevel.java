@@ -11,6 +11,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import kamisado.exceptions.InvalidArgumentException;
 import kamisado.exceptions.MoveException;
+import kamisado.gameplay.Couleur;
 import kamisado.gameplay.Plateau;
 import kamisado.gameplay.Side;
 
@@ -18,6 +19,7 @@ public class MainLevel extends BasicGameState {
 	private Plateau board;
 	private Point selected;
 	private Side playing;
+	private Couleur nextcolor;
 
 	public MainLevel() {
 		// TODO Auto-generated constructor stub
@@ -35,6 +37,7 @@ public class MainLevel extends BasicGameState {
 		}
 		selected = null;
 		playing = Side.Black;
+		nextcolor = null;
 	}
 
 	@Override
@@ -66,12 +69,12 @@ public class MainLevel extends BasicGameState {
 		// TODO Auto-generated method stub
 		super.mouseClicked(button, x, y, nbr);
 		if (!board.isEnded() && button == Input.MOUSE_LEFT_BUTTON) {
-			if (selected == null && board.isPieceHere(x/100, y/100) && board.getSideHere(x/100, y/100).equals(playing)) {
+			if (selected == null && board.isPieceHere(x/100, y/100) && board.getSideHere(x/100, y/100).equals(playing) && (nextcolor == null || nextcolor.equals(board.getCouleurHere(x/100, y/100)))) {
 				selected = new Point(x/100,y/100);
 			} else {
 				if (selected.x != x/100 || selected.y != y/100) {
 					try {
-						board.move(selected.x, selected.y, x/100, y/100);
+						nextcolor = board.move(selected.x, selected.y, x/100, y/100);
 					} catch (MoveException e) {
 						// TODO Auto-generated catch block
 						if (e.getMover() != null) {

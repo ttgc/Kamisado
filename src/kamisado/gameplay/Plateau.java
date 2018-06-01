@@ -123,7 +123,7 @@ public class Plateau {
 		}
 	}
 	
-	public void move(int fromx, int fromy, int tox, int toy) throws MoveException {
+	public Couleur move(int fromx, int fromy, int tox, int toy) throws MoveException {
 		if (pieces.get(fromx, fromy) == null) {
 			throw new MoveException("no piece found", null);
 		}
@@ -177,6 +177,7 @@ public class Plateau {
 		pieces.set(fromx, fromy, null);
 		pieces.set(tox, toy, piece);
 		checkEnd();
+		return back.get(tox, toy);
 	}
 
 	private void checkEnd() {
@@ -198,6 +199,13 @@ public class Plateau {
 	public Side getSideHere(int x, int y) {
 		if (pieces.get(x, y) != null) {
 			return pieces.get(x, y).getSide();
+		}
+		return null;
+	}
+	
+	public Couleur getCouleurHere(int x, int y) {
+		if (pieces.get(x, y) != null) {
+			return pieces.get(x, y).getColor();
 		}
 		return null;
 	}
