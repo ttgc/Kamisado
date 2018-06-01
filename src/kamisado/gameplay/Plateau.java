@@ -83,16 +83,16 @@ public class Plateau {
 					g.setLineWidth(2);
 					switch (tour.getType()) {
 					case DoubleSumo:
-						g.drawLine(i*100+42+4, j*100+22+4, i*100+10+65, j*100+10+45);
-						g.drawLine(i*100+22+4, j*100+42+4, i*100+9+45, j*100+9+65);
+						g.drawLine(i*100+43+4, j*100+23+4, i*100+10+65, j*100+10+45);
+						g.drawLine(i*100+23+4, j*100+43+4, i*100+9+45, j*100+9+65);
 						break;
 					case Sumo:
-						g.drawLine(i*100+32, j*100+32, i*100+12+55, j*100+12+55);
+						g.drawLine(i*100+33, j*100+33, i*100+12+55, j*100+12+55);
 						break;
 					case TripleSumo:
-						g.drawLine(i*100+32, j*100+32, i*100+12+55, j*100+12+55);
-						g.drawLine(i*100+42+4, j*100+22+4, i*100+10+65, j*100+10+45);
-						g.drawLine(i*100+22+4, j*100+42+4, i*100+9+45, j*100+9+65);
+						g.drawLine(i*100+33, j*100+33, i*100+12+55, j*100+12+55);
+						g.drawLine(i*100+43+4, j*100+23+4, i*100+10+65, j*100+10+45);
+						g.drawLine(i*100+23+4, j*100+43+4, i*100+9+45, j*100+9+65);
 						break;
 					default:
 						break;
