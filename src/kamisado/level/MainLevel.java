@@ -90,17 +90,22 @@ public class MainLevel extends BasicGameState {
 					}
 				}
 			} else {			
-				if (y < 100) {//first column
-					board.reset(false);
-				} else if (y > 700) {//last column
-					board.reset(true);
-				}
 				switch (board.getWinner()) {
 				case Black:
 					playing = Side.White;
+					if (y < 100) {//first column
+						board.reset(true);
+					} else if (y > 700) {//last column
+						board.reset(false);
+					}
 					break;
 				case White:
 					playing = Side.Black;
+					if (y < 100) {//first column
+						board.reset(false);
+					} else if (y > 700) {//last column
+						board.reset(true);
+					}
 					break;				
 				}
 				nextcolor = null;
