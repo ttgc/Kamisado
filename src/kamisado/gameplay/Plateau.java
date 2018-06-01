@@ -137,7 +137,7 @@ public class Plateau {
 				}
 			}
 		}
-		for (int i=0;i>=pieces.getWidth();i++) {
+		for (int i=0;i<pieces.getWidth();i++) {
 			pieces.set(i, 0, blancs.get(i));
 			pieces.set(i, 7, noirs.get(i));
 		}
@@ -203,13 +203,13 @@ public class Plateau {
 	private void checkEnd() {
 		// TODO Auto-generated method stub
 		for (int i=0;i<pieces.getWidth();i++) {
-			if (pieces.get(0, i) != null && pieces.get(0, i).getSide().equals(Side.Black)) {
-				pieces.get(0, i).upgrade();
+			if (pieces.get(i, 0) != null && pieces.get(i, 0).getSide().equals(Side.Black)) {
+				pieces.get(i, 0).upgrade();
 				ended = true;
 				winner = Side.Black;
 			}
-			if (pieces.get(7, i) != null && pieces.get(7, i).getSide().equals(Side.White)) {
-				pieces.get(7, i).upgrade();
+			if (pieces.get(i, 7) != null && pieces.get(i, 7).getSide().equals(Side.White)) {
+				pieces.get(i, 7).upgrade();
 				ended = true;
 				winner = Side.White;
 			}
