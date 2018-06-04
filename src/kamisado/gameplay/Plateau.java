@@ -131,6 +131,8 @@ public class Plateau {
 					}
 				}
 			}
+			Collections.reverse(blancs);
+			Collections.reverse(noirs);
 			for (int i=0;i<pieces.getWidth();i++) {
 				pieces.set(pieces.getWidth()-1-i, 0, blancs.get(i));
 				pieces.set(i, 7, noirs.get(i));
