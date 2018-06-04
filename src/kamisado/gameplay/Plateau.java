@@ -243,12 +243,21 @@ public class Plateau {
 			playing = Side.Black;
 			break;
 		}
+		Vector<Piece> analyzed = new Vector<>();
 		while (isBlocked(couleur, playing)) {
 			boolean switched = false;
 			for (int i=0;i<pieces.getWidth();i++) {
 				for (int k=0;k<pieces.getHeight();k++) {
 					if (!switched && pieces.get(i, k) != null && pieces.get(i, k).getSide().equals(playing) && pieces.get(i, k).getColor().equals(couleur)) {
 						couleur = back.get(i, k);
+						if (analyzed.contains(pieces.get(i, k))) {
+							ended = true;
+							winner = analyzed.get(0).getSide();
+							analyzed.get(0).upgrade();
+							return new StructureSwitch(analyzed.get(0).getColor(), analyzed.get(0).getSide());
+						} else {
+							analyzed.add(pieces.get(i, k));
+						}
 						switched = true;
 					}
 				}
