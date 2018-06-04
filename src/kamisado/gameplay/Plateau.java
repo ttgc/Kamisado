@@ -115,9 +115,17 @@ public class Plateau {
 				for (int k=0;k<pieces.getWidth();k++) {
 					if (pieces.get(k, i) != null) {
 						if (pieces.get(k, i).getSide().equals(Side.Black)) {
-							noirs.add(pieces.get(k, i));
+							if (i==8) {
+								noirs.add(7,pieces.get(k, i));
+							} else {
+								noirs.add(pieces.get(k, i));
+							}
 						} else {
-							blancs.add(0,pieces.get(k, i));
+							if (i==0) {
+								blancs.add(pieces.get(k, i));
+							} else {
+								blancs.add(0,pieces.get(k, i));
+							}
 						}
 						pieces.set(k, i, null);
 					}
@@ -132,9 +140,17 @@ public class Plateau {
 				for (int k=pieces.getWidth()-1;k>=0;k--) {
 					if (pieces.get(k, i) != null) {
 						if (pieces.get(k, i).getSide().equals(Side.Black)) {
-							noirs.add(pieces.get(k, i));
+							if (i==8) {
+								noirs.add(7,pieces.get(k, i));
+							} else {
+								noirs.add(pieces.get(k, i));
+							}
 						} else {
-							blancs.add(0,pieces.get(k, i));
+							if (i==0) {
+								blancs.add(pieces.get(k, i));
+							} else {
+								blancs.add(0,pieces.get(k, i));
+							}
 						}
 						pieces.set(k, i, null);
 					}
